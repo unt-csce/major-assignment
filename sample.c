@@ -646,6 +646,8 @@ int main(int argc, char *argv[], char *envp[])
 
                                                 //break
                                                 break;
+	case 'q':
+		exit(1);
                    
                         default: strncat(tmp, &c, 1); //no return, so keep grabbing the characters
                                          break;
