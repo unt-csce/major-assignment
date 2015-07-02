@@ -64,7 +64,7 @@ void print_token_list ( token* list ) {
     }
     current = current->next;
   }
-  printf( "TERMINUS\n" );
+ /* printf( "TERMINUS\n" );*/
 }
 
 /*a function to clean up the token list*/
@@ -103,6 +103,7 @@ void runtokenlist ( token* list){
     current = current->next;  
   }
  
+ /* allocate buffer of the pointers  then increase the array size*/
   char** argarray = (char**) try_realloc ( 0 ,(count+1)*sizeof ( char* ));
   current = list;
   int i;
@@ -113,15 +114,15 @@ void runtokenlist ( token* list){
 
   argarray[i] = 0;
  
+   /* creating the fork and wait*/
   pid_t pid = fork();
   if (pid){
     int status;
-    waitpid ( pid, &status, 0);
+    waitpid ( pid, &status, 0);    /* called by the parent to wait for the child */
   }
-  else {
+  else {        /* parent execute */
     execvp( list->data, argarray );
   }
-  /*in the future let make the fork and wait, so we will need to clean up*/
   free( argarray );   
 }
   
